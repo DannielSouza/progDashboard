@@ -76,6 +76,28 @@ public class UserService {
     }
 
 
+    // CHANGE USER'S TASK STATUS
+    public ResponseEntity<Map<String, String>> changeTaskStatus(Long id, Task task){
+        Map<String, String> message = new TreeMap<>();
+        Optional<Task> updateTask = taskRepository.findById(task.getId());
+
+        if(updateTask.isEmpty()){
+            message.put("error", "Essa tarefa não existe.");
+            return ResponseEntity.badRequest().body(message);
+        }
+        if(updateTask.get().getIdUser() != id){
+            message.put("error", "Essa tarefa não pertence a esse usuário.");
+            return ResponseEntity.badRequest().body(message);
+        }
+
+        updateTask.get().setTaskStatus(task.getTaskStatus());
+        taskRepository.save(updateTask.get());
+
+        message.put("messasge", "Status da tarefa alterado com sucesso.");
+        return ResponseEntity.ok().body(message);
+    }
+
+
 
 
 

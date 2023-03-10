@@ -28,6 +28,11 @@ public class Task {
         setTaskStatus(taskStatus);
     }
 
+    public Task(Long id, TaskStatus taskStatus) {
+        this.id = id;
+        setTaskStatus(taskStatus);
+    }
+
     public TaskStatus getTaskStatus() {
         return TaskStatus.valueOf(taskStatus);
     }
