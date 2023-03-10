@@ -1,5 +1,6 @@
 package com.dannielSouza.progDashboard.JWTconfig;
 
+import com.dannielSouza.progDashboard.repositories.CompanyRepository;
 import com.dannielSouza.progDashboard.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class Configuration {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
 
     @Bean
@@ -26,7 +29,16 @@ public class Configuration {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return repository.findByUsername(username).orElseThrow();
+
+                var userRegister = repository.findByUsername(username);
+                if(userRegister.isPresent()){
+                    return userRegister.get();
+                }
+                var companyRegister = companyRepository.findByEmail(username);
+                if(companyRegister.isPresent()){
+                    return companyRegister.get();
+                }
+                return null;
             };
         };
     };
