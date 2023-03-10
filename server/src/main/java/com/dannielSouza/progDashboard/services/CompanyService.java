@@ -8,6 +8,8 @@ import com.dannielSouza.progDashboard.repositories.CompanyRepository;
 import com.dannielSouza.progDashboard.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +27,17 @@ public class CompanyService {
     private  UserService userService;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
 
-    //CHECK IF THE COMPANY ALREADY EXIST
+    // CHECK IF THE COMPANY ALREADY EXIST
     public Optional<Company> checkExistingCompany(String email){
         return repository.findByEmail(email);
     };
 
 
-    //REGISTER A NEW COMPANY
+    // REGISTER A NEW COMPANY
     public ResponseEntity<Map<String, String>> register(Company company){
         Map<String, String> message = new TreeMap<>();
         Optional<Company> existingCompany = checkExistingCompany(company.getEmail());
@@ -49,15 +53,36 @@ public class CompanyService {
         var jwtToken = jwtService.generateCompanyToken(newCompany);
 
         message.put("token", jwtToken);
+        message.put("companyId", newCompany.getId()+"");
         message.put("companyEmail", newCompany.getEmail());
         message.put("companyName", newCompany.getName());
         return ResponseEntity.ok().body(message);
     };
 
 
+    // COMPANY LOGIN
+    public ResponseEntity<Map<String, String>> login(Company company){
+        Map<String, String> message = new TreeMap<>();
+        Optional<Company> thisCompany = repository.findByEmail(company.getEmail());
 
+        try {
 
-    //GET COMPANY INFO
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(company.getEmail(), company.getPassword()));
+            var jwtToken = jwtService.generateCompanyToken(company);
+
+            message.put("token", jwtToken);
+            message.put("id", thisCompany.get().getId()+"");
+            message.put("username", thisCompany.get().getEmail());
+            message.put("name",  thisCompany.get().getName());
+            return ResponseEntity.ok().body(message);
+
+        } catch (Exception e) {
+            message.put("error", "Usuário ou senha inválido.");
+            return ResponseEntity.badRequest().body(message);
+        }
+    }
+
+    // GET COMPANY INFO
     public ResponseEntity<CompanyDTO> getCompanyInfo(Long id){
 
         Company company = repository.findById(id).orElseThrow(()->new RuntimeException("Não encontrado"));
@@ -67,7 +92,45 @@ public class CompanyService {
     }
 
 
+    // REGISTER A NEW COMPANY USER
+    public ResponseEntity<Map<String, String>> createUser(User user) {
+        Map<String, String> message = new HashMap<>();
 
+        Optional<Company> company = repository.findById(user.getIdCompany());
+        if(company.isEmpty()){
+            message.put("error", "Esta empresa não existe");
+            return ResponseEntity.ok().body(message);
+        }
+
+        Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        if(existingUser.isPresent()){
+            message.put("error", "Usuário indiponivel.");
+            return ResponseEntity.ok().body(message);
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User newPerson = new User(user.getName(), user.getUsername(), encoder.encode(user.getPassword()), user.getIdCompany());
+        userRepository.save(newPerson);
+
+        message.put("message", "Pessoa criada com sucesso!");
+        return ResponseEntity.ok().body(message);
+    }
+
+
+    // DELETE COMPANY USER
+    public  ResponseEntity<Map<String, String>> deleteUser(Long id){
+        Map<String, String> message = new HashMap<>();
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isEmpty()){
+            message.put("error", "Este usuário não existe.");
+            return ResponseEntity.ok().body(message);
+        }
+
+        userRepository.deleteById(id);
+        message.put("message", "Usuário deletado com sucesso.");
+        return ResponseEntity.ok().body(message);
+    }
 
 
 

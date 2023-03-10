@@ -2,8 +2,10 @@ package com.dannielSouza.progDashboard.controllers;
 
 import com.dannielSouza.progDashboard.models.Company;
 import com.dannielSouza.progDashboard.models.DTO.CompanyDTO;
+import com.dannielSouza.progDashboard.models.User;
 import com.dannielSouza.progDashboard.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,27 @@ public class CompanyController {
     }
 
 
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody Company company){
+        return service.login(company);
+    }
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<CompanyDTO> getAll(@PathVariable Long id){
+    public ResponseEntity<CompanyDTO> companyInfo(@PathVariable Long id){
         return  service.getCompanyInfo(id);
     }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<Map<String, String>> createUser(@RequestBody User user){
+        return  service.createUser(user);
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id){
+        return  service.deleteUser(id);
+    }
+
 }
