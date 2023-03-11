@@ -56,6 +56,7 @@ public class CompanyService {
         message.put("companyId", newCompany.getId()+"");
         message.put("companyEmail", newCompany.getEmail());
         message.put("companyName", newCompany.getName());
+        message.put("role",  newCompany.getRole()+"");
         return ResponseEntity.ok().body(message);
     };
 
@@ -74,6 +75,7 @@ public class CompanyService {
             message.put("id", thisCompany.get().getId()+"");
             message.put("username", thisCompany.get().getEmail());
             message.put("name",  thisCompany.get().getName());
+            message.put("role",  thisCompany.get().getRole()+"");
             return ResponseEntity.ok().body(message);
 
         } catch (Exception e) {
@@ -144,10 +146,12 @@ public class CompanyService {
                 company.getId(),
                 company.getName(),
                 company.getEmail(),
+                company.getRole(),
                 userList.get()
                         .stream()
                         .map(user -> userService.userDTOMapper(user))
                         .collect(Collectors.toList())
+
                 );
 
     };

@@ -1,5 +1,6 @@
 package com.dannielSouza.progDashboard.models;
 
+import com.dannielSouza.progDashboard.models.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,12 +29,15 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany
     private List<Task> tasksList = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public User(String name, String username, String password, Long idCompany) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.idCompany = idCompany;
+        setRole(Role.USER);
     }
 
     @Override

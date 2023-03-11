@@ -7,6 +7,7 @@ import com.dannielSouza.progDashboard.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -32,18 +33,21 @@ public class CompanyController {
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CompanyDTO> companyInfo(@PathVariable Long id){
         return  service.getCompanyInfo(id);
     }
 
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, String>> createUser(@RequestBody User user){
         return  service.createUser(user);
     }
 
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id){
         return  service.deleteUser(id);
     }

@@ -1,5 +1,6 @@
 package com.dannielSouza.progDashboard.JWTconfig;
 
+import com.dannielSouza.progDashboard.models.Enums.Role;
 import com.dannielSouza.progDashboard.repositories.CompanyRepository;
 import com.dannielSouza.progDashboard.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,8 @@ public class Configuration {
                 if(companyRegister.isPresent()){
                     return companyRegister.get();
                 }
+
+
                 return null;
             };
         };

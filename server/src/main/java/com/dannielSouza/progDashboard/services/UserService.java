@@ -53,6 +53,7 @@ public class UserService {
             message.put("id", thisUser.get().getId()+"");
             message.put("username", thisUser.get().getUsername());
             message.put("name",  thisUser.get().getName());
+            message.put("role",  thisUser.get().getRole()+"");
             return ResponseEntity.ok().body(message);
 
         } catch (Exception e) {
@@ -110,6 +111,7 @@ public class UserService {
                 user.getName(),
                 user.getUsername(),
                 user.getIdCompany(),
+                user.getRole(),
                 tasksList.get()
         );
     }
