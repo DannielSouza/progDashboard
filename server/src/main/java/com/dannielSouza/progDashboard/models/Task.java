@@ -22,6 +22,7 @@ public class Task {
     private String description;
     private Integer taskStatus;
     private LocalDateTime creationDate;
+    private LocalDateTime updateDate;
     private LocalDateTime expirationDate;
 
     public Task(Long idUser, Long idCompany, String name, String description, TaskStatus taskStatus, LocalDateTime expirationDate) {

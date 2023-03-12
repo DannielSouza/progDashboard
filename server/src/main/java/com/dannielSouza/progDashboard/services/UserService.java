@@ -57,9 +57,9 @@ public class UserService {
             message.put("name",  thisUser.get().getName());
             message.put("role",  thisUser.get().getRole()+"");
 
-            LocalDateTime changeLastLogin = LocalDateTime.now();
+            LocalDateTime lastLogin = LocalDateTime.now();
 
-            thisUser.get().setLastLogin(changeLastLogin);
+            thisUser.get().setLastLogin(lastLogin);
             repository.save(thisUser.get());
 
             return ResponseEntity.ok().body(message);
@@ -99,6 +99,9 @@ public class UserService {
             return ResponseEntity.badRequest().body(message);
         }
 
+        LocalDateTime updateTime = LocalDateTime.now();
+
+        updateTask.get().setUpdateDate(updateTime);
         updateTask.get().setTaskStatus(task.getTaskStatus());
         taskRepository.save(updateTask.get());
 
