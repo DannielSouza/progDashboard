@@ -14,6 +14,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -54,6 +56,12 @@ public class UserService {
             message.put("username", thisUser.get().getUsername());
             message.put("name",  thisUser.get().getName());
             message.put("role",  thisUser.get().getRole()+"");
+
+            LocalDateTime changeLastLogin = LocalDateTime.now();
+
+            thisUser.get().setLastLogin(changeLastLogin);
+            repository.save(thisUser.get());
+
             return ResponseEntity.ok().body(message);
 
         } catch (Exception e) {
@@ -112,6 +120,7 @@ public class UserService {
                 user.getUsername(),
                 user.getIdCompany(),
                 user.getRole(),
+                user.getLastLogin(),
                 tasksList.get()
         );
     }

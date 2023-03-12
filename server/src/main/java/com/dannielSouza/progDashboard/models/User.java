@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,6 +34,7 @@ public class User implements UserDetails {
     private List<Task> tasksList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Role role;
+    private LocalDateTime lastLogin;
 
     public User(String name, String username, String password, Long idCompany) {
         this.name = name;
