@@ -3,6 +3,7 @@ package com.dannielSouza.progDashboard.services;
 import com.dannielSouza.progDashboard.JWTconfig.JwtService;
 import com.dannielSouza.progDashboard.models.Company;
 import com.dannielSouza.progDashboard.models.DTO.CompanyDTO;
+import com.dannielSouza.progDashboard.models.DTO.UserDTO;
 import com.dannielSouza.progDashboard.models.User;
 import com.dannielSouza.progDashboard.repositories.CompanyRepository;
 import com.dannielSouza.progDashboard.repositories.UserRepository;
@@ -132,6 +133,21 @@ public class CompanyService {
         userRepository.deleteById(id);
         message.put("message", "Usuário deletado com sucesso.");
         return ResponseEntity.ok().body(message);
+    }
+
+
+    // GET ALL USER'S COMPANY
+    public Object getAllUsers(Long id){
+        Map<String, String> message = new HashMap<>();
+
+        Optional<List<User>> userList = userRepository.findAllByIdCompany(id);
+        if(userList.get().size() < 1){
+            message.put("error", "Ainda não existem usuários cadastrados.");
+            return ResponseEntity.badRequest().body(message);
+        }
+
+        List<UserDTO> userDTOList = userList.get().stream().map(listItem-> userService.userDTOMapper(listItem)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(userDTOList);
     }
 
 

@@ -38,6 +38,12 @@ public class CompanyController {
         return  service.getCompanyInfo(id);
     }
 
+    @GetMapping("getusers/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Object getAllUsersCompany(@PathVariable Long id){
+        return  service.getAllUsers(id);
+    }
+
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('ADMIN')")
