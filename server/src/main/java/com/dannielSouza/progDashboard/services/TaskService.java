@@ -35,7 +35,7 @@ public class TaskService {
             return ResponseEntity.ok().body(message);
         }
 
-        Task newTask = new Task(task.getIdUser(), task.getIdCompany(), task.getName(), task.getDescription(), task.getTaskStatus());
+        Task newTask = new Task(task.getIdUser(), task.getIdCompany(), task.getName(), task.getDescription(), task.getTaskStatus(), task.getExpirationDate());
         repository.save(newTask);
 
         message.put("message", "Tarefa criada com sucesso!");

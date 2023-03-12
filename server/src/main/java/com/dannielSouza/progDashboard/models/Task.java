@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -19,13 +21,17 @@ public class Task {
     private String name;
     private String description;
     private Integer taskStatus;
+    private LocalDateTime creationDate;
+    private LocalDateTime expirationDate;
 
-    public Task(Long idUser, Long idCompany, String name, String description, TaskStatus taskStatus) {
+    public Task(Long idUser, Long idCompany, String name, String description, TaskStatus taskStatus, LocalDateTime expirationDate) {
         this.idUser = idUser;
         this.idCompany = idCompany;
         this.name = name;
         this.description = description;
         setTaskStatus(taskStatus);
+        creationDate = LocalDateTime.now();
+        this.expirationDate = expirationDate;
     }
 
     public Task(Long id, TaskStatus taskStatus) {
