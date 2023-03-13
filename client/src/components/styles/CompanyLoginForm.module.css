@@ -1,0 +1,116 @@
+.formContainer{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgb(250, 250, 250);
+  border-radius: 0 20px 20px 0;
+  z-index: 99;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.title{
+  text-align: center;
+  color: #212F3D;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  font-size: 1.8rem;
+}
+
+.title span{
+  color: #74E5C4;
+}
+
+.labelItem{
+  display: flex;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: .5s;
+  animation: animaAppearLeft .5s ease-in forwards;
+}
+
+.labelItem:hover{
+  box-shadow: 0 0 5px 2px#74E5C4;
+}
+
+.labelItem input{
+  border: none;
+  width: 250px;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid #74E5C4;
+  border-left: none;
+  padding-left: 10px;
+  font-size: .75rem;
+  outline: none;
+}
+
+.labelItem img{
+  max-width: 40px;
+  padding: 5px 10px;
+  border-radius: 10px  0  0 10px;
+  background-color: white;
+  border: 1px solid #74E5C4;
+  border-right: none;
+}
+
+
+.changeScreen{
+  font-size: .75rem;
+  transform: translate(-60px, -10px);
+  margin-bottom: 1rem;
+  animation: animaAppear .8s ease-in forwards;
+}
+
+.changeScreen span{
+  color: #74E5C4;
+  cursor: pointer;
+}
+
+.sendButton, 
+.sendButtonDisabled{
+  width: 290px;
+  height: 30px;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10px;
+  background-color: #74E5C4;
+  cursor: pointer;
+  transition: .5s;
+  animation: animaAppearLeft .5s ease-in forwards;
+}
+
+.sendButtonDisabled{
+  cursor: not-allowed;
+  background-color: #5E9499;
+}
+
+.sendButton:hover{
+  background-color: #028B71;
+}
+
+
+@keyframes animaAppearLeft{
+  from{
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0);
+    opacity: initial;
+  }
+}
+
+@keyframes animaAppear{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: initial;
+  }
+}
