@@ -20,6 +20,7 @@ public class UserController {
 
     // USER LOGIN
     @PostMapping("/login")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> login(@RequestBody User user){
         return service.login(user);
     }
@@ -27,6 +28,7 @@ public class UserController {
 
     // USER INFO
     @GetMapping("/{id}")
+    @CrossOrigin("http://localhost:3000")
     public Object userInfo(@PathVariable Long id){
         return service.getInfo(id);
     }
@@ -34,6 +36,7 @@ public class UserController {
 
     // CHANGE TASK STATUS
     @PostMapping("/{id}")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> changeTaskStatus(@PathVariable Long id, @RequestBody Task task){
         return service.changeTaskStatus(id, task);
     }

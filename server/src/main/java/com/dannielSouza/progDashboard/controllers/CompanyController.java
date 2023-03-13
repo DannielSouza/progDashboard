@@ -21,12 +21,14 @@ public class CompanyController {
 
 
     @PostMapping("/register")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> register(@RequestBody Company company){
         return  service.register(company);
     }
 
 
     @PostMapping("/login")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> login(@RequestBody Company company){
         return service.login(company);
     }
@@ -34,12 +36,14 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<CompanyDTO> companyInfo(@PathVariable Long id){
         return  service.getCompanyInfo(id);
     }
 
     @GetMapping("getusers/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin("http://localhost:3000")
     public Object getAllUsersCompany(@PathVariable Long id){
         return  service.getAllUsers(id);
     }
@@ -47,6 +51,7 @@ public class CompanyController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> createUser(@RequestBody User user){
         return  service.createUser(user);
     }
@@ -54,6 +59,7 @@ public class CompanyController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id){
         return  service.deleteUser(id);
     }
