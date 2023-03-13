@@ -54,9 +54,9 @@ public class CompanyService {
         var jwtToken = jwtService.generateCompanyToken(newCompany);
 
         message.put("token", jwtToken);
-        message.put("companyId", newCompany.getId()+"");
-        message.put("companyEmail", newCompany.getEmail());
-        message.put("companyName", newCompany.getName());
+        message.put("id", newCompany.getId()+"");
+        message.put("username", newCompany.getEmail());
+        message.put("name", newCompany.getName());
         message.put("role",  newCompany.getRole()+"");
         return ResponseEntity.ok().body(message);
     };
