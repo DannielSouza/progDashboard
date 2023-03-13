@@ -11,6 +11,14 @@ async function companyLogin(userData){
   return data;
 }
 
+/* REGISTER COMPANY */
+async function companyRegister(userData){
+  const response = await axios.post("http://localhost:8080/company/register", userData);
+  const data = await response.data;
+
+  return data;
+}
 
 
-export { companyLogin };
+
+export { companyLogin, companyRegister };
