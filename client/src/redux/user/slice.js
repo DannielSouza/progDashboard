@@ -8,13 +8,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    autoAuthenticationUser: (state, action)=>{
-      state.currentUser = action.payload
-    },
-    login: (state, action)=>{
-      state.currentUser = action.payload
-    },
-    register: (state, action)=>{
+    saveUser: (state, action)=>{
       state.currentUser = action.payload
     },
     logout: (state, action)=>{
@@ -23,6 +17,6 @@ const userSlice = createSlice({
   }
 })
 
-export const { autoAuthenticationUser, login, register, logout } = userSlice.actions
+export const { saveUser, logout } = userSlice.actions
 
 export default userSlice.reducer
