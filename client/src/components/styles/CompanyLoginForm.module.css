@@ -13,15 +13,13 @@
 }
 
 .title{
-  text-align: center;
   color: #212F3D;
-  margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
   margin-top: 1rem;
   font-size: 1.8rem;
-}
-
-.title span{
-  color: #74E5C4;
+  width: 100px;
+  border-bottom: 1px solid #74E5C4;
 }
 
 .labelItem{
@@ -112,5 +110,12 @@
   }
   to{
     opacity: initial;
+  }
+}
+
+@media (max-width: 500px){
+  .title{
+    font-size: 1.3rem;
+    width: 80px;
   }
 }

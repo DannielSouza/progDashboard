@@ -3,12 +3,12 @@ import emailIcon from './assets/mail.png'
 import keyIcon from './assets/key.png'
 import { companyLogin } from './helpers/Api'
 import { useDispatch } from 'react-redux'
-import {login} from '../redux/user/slice'
+import {saveUser} from '../redux/user/slice'
 import ErrorMessage from './ErrorMessage'
 import { useNavigate } from "react-router-dom";
 import style from './styles/CompanyLoginForm.module.css'
 
-const CompanyLoginForm = ({setScreen}) => {
+const CompanyLoginForm = ({screen, setScreen}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [userData, setUserData] = React.useState({})
@@ -26,8 +26,8 @@ const CompanyLoginForm = ({setScreen}) => {
       setLoading(true)
       const response = await companyLogin(userData)
       localStorage.setItem("progDashboardAuth", JSON.stringify(response))
-      dispatch(login(response))
-      /* navigate("/") */
+      dispatch(saveUser(response))
+      navigate("/")
     } catch (error) {
       setError(error.response.data.error)
     }finally{
@@ -38,7 +38,7 @@ const CompanyLoginForm = ({setScreen}) => {
   return (
     <form onSubmit={userLoginFormSubmit} className={style.formContainer}>
       {error && <ErrorMessage message={error}/>}
-      <h2 className={style.title}>Prog<span>Dashboard</span> | Empresa</h2>
+      <h2 className={style.title}>{screen}</h2>
 
         <label className={style.labelItem}>
           <img src={emailIcon} alt="icone de carta"/>
@@ -50,7 +50,7 @@ const CompanyLoginForm = ({setScreen}) => {
           <input autoComplete='off' onChange={changeUserData} type="password" name='password' placeholder='Insira sua senha cadastrada' required/>
         </label>
 
-        <p className={style.changeScreen}>Não possui conta? <span onClick={()=>setScreen("REGISTER")}>Registre-se.</span></p>
+        <p className={style.changeScreen}>Não possui conta? <span onClick={()=>setScreen("Cadastrar-se")}>Registre-se.</span></p>
 
         {!loading ?
         <button className={style.sendButton}>Entrar</button>

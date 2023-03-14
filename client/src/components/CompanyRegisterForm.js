@@ -4,12 +4,12 @@ import keyIcon from './assets/key.png'
 import userIcon from './assets/user.png'
 import { companyRegister } from './helpers/Api'
 import { useDispatch } from 'react-redux'
-import {register} from '../redux/user/slice'
+import {saveUser} from '../redux/user/slice'
 import ErrorMessage from './ErrorMessage'
 import { useNavigate } from "react-router-dom";
 import style from "./styles/CompanyRegisterForm.module.css"
 
-const CompanyRegisterForm = ({setScreen}) => {
+const CompanyRegisterForm = ({screen, setScreen}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [userData, setUserData] = React.useState({})
@@ -28,8 +28,8 @@ const CompanyRegisterForm = ({setScreen}) => {
       setLoading(true)
       const response = await companyRegister(userData)
       localStorage.setItem("progMindAuth", JSON.stringify(response))
-      dispatch(register(response))
-      /* navigate("/") */
+      dispatch(saveUser(response))
+      navigate("/")
     } catch (error) {
       setError(error.response.data.error)
     }finally{
@@ -42,7 +42,7 @@ const CompanyRegisterForm = ({setScreen}) => {
     <form onSubmit={userRegisterFormSubmit} className={style.formContainer}>
     {error && <ErrorMessage message={error}/>}
 
-    <h2 className={style.title}>Prog<span>Dashboard</span> | Empresa</h2>
+      <h2 className={style.title}>{screen}</h2>
 
       <label className={style.labelItem}>
           <img src={userIcon} alt="icone de uma pessoa"/>
@@ -59,7 +59,7 @@ const CompanyRegisterForm = ({setScreen}) => {
           <input autoComplete='off' onChange={changeUserData} required name='password' type="password" placeholder='Cadastre uma senha'/>
         </label>
 
-        <p className={style.changeScreen}>Já possui conta? <span onClick={()=>setScreen("LOGIN")}>Entrar.</span></p>
+        <p className={style.changeScreen}>Já possui conta? <span onClick={()=>setScreen("Entrar")}>Entrar.</span></p>
 
 
         {!loading ?
