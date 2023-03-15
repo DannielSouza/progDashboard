@@ -41,6 +41,7 @@ public class CompanyController {
         return  service.getCompanyInfo(id);
     }
 
+
     @GetMapping("getusers/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @CrossOrigin("http://localhost:3000")
@@ -56,6 +57,13 @@ public class CompanyController {
         return  service.createUser(user);
     }
 
+
+    @DeleteMapping("/deleteAll/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin("http://localhost:3000")
+    public ResponseEntity<Map<String, String>> deleteUserAndTasks(@PathVariable Long id){
+        return  service.deleteUserAndTasks(id);
+    }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")

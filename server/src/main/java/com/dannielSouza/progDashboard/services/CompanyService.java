@@ -6,6 +6,7 @@ import com.dannielSouza.progDashboard.models.DTO.CompanyDTO;
 import com.dannielSouza.progDashboard.models.DTO.UserDTO;
 import com.dannielSouza.progDashboard.models.User;
 import com.dannielSouza.progDashboard.repositories.CompanyRepository;
+import com.dannielSouza.progDashboard.repositories.TaskRepository;
 import com.dannielSouza.progDashboard.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ public class CompanyService {
     private CompanyRepository repository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TaskRepository taskRepository;
     @Autowired
     private  UserService userService;
     @Autowired
@@ -120,7 +123,7 @@ public class CompanyService {
     }
 
 
-    // DELETE COMPANY USER
+    // DELETE COMPANY USER BUT NOT ITS TASKS
     public  ResponseEntity<Map<String, String>> deleteUser(Long id){
         Map<String, String> message = new HashMap<>();
         Optional<User> user = userRepository.findById(id);
@@ -132,6 +135,23 @@ public class CompanyService {
 
         userRepository.deleteById(id);
         message.put("message", "Usuário deletado com sucesso.");
+        return ResponseEntity.ok().body(message);
+    }
+
+    // DELETE COMPANY USER AND ITS TASKS
+    public  ResponseEntity<Map<String, String>> deleteUserAndTasks(Long id){
+        Map<String, String> message = new HashMap<>();
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isEmpty()){
+            message.put("error", "Este usuário não existe.");
+            return ResponseEntity.ok().body(message);
+        }
+
+        user.get().getTasksList().forEach(task-> taskRepository.delete(task));
+
+        userRepository.deleteById(id);
+        message.put("message", "Usuário e tarefas deletados com sucesso.");
         return ResponseEntity.ok().body(message);
     }
 
