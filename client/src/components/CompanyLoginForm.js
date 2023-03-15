@@ -25,9 +25,9 @@ const CompanyLoginForm = ({screen, setScreen}) => {
       setError(false)
       setLoading(true)
       const response = await companyLogin(userData)
-      localStorage.setItem("progDashboardAuth", JSON.stringify(response))
+      localStorage.setItem("progDashboardAuth", JSON.stringify(response.token))
       dispatch(saveUser(response))
-      navigate("/")
+      navigate("/company")
     } catch (error) {
       setError(error.response.data.error)
     }finally{

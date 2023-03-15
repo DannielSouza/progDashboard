@@ -27,9 +27,9 @@ const CompanyRegisterForm = ({screen, setScreen}) => {
       setError(false)
       setLoading(true)
       const response = await companyRegister(userData)
-      localStorage.setItem("progMindAuth", JSON.stringify(response))
+      localStorage.setItem("progMindAuth", JSON.stringify(response.token))
       dispatch(saveUser(response))
-      navigate("/")
+      navigate("/company")
     } catch (error) {
       setError(error.response.data.error)
     }finally{
