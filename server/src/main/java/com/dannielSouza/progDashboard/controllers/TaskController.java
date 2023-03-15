@@ -5,10 +5,7 @@ import com.dannielSouza.progDashboard.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -20,9 +17,16 @@ public class TaskController {
     private TaskService service;
 
 
-    @PostMapping("/register")
+    @PostMapping("/create")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> create(@RequestBody Task task){
         return service.register(task);
+    }
+
+
+    @DeleteMapping("delete/{id}")
+    @CrossOrigin("http://localhost:3000")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id){
+        return service.deleteTask(id);
     }
 }

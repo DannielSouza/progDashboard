@@ -20,6 +20,8 @@ public class TaskService {
     private TaskRepository repository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthService authService;
 
     //CREATE NEW TASK
     public ResponseEntity<Map<String, String>> register(Task task){
@@ -43,6 +45,20 @@ public class TaskService {
     }
 
 
+    // DELETE TASK
+    public ResponseEntity<Map<String, String>> deleteTask(Long id){
 
+        Map<String, String> message = new HashMap<>();
+        Optional<Task> task = repository.findById(id);
+
+        if(task.isEmpty()){
+            message.put("error", "Esta tarefa não existe");
+            return ResponseEntity.badRequest().body(message);
+        }
+
+        repository.delete(task.get());
+        message.put("message", "Tarefa excluida com sucesso!");
+        return ResponseEntity.ok().body(message);
+    }
 
 }
