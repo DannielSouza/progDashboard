@@ -18,6 +18,7 @@ const CompanyHome = () => {
       }
       autoAuthenticate()
     }
+    navigate("/")
   },[token])
 
   return (
