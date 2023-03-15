@@ -26,7 +26,7 @@ public class AuthService {
 
 
     // AUTHENTICATE USER BY TOKEN
-    public ResponseEntity<Map<String, String>> autoAutheticate(String token){
+    public Map<String, String> autoAutheticate(String token){
         Map<String, String> message = new TreeMap<>();
         String[] chunks = token.split("\\.");
 
@@ -45,7 +45,7 @@ public class AuthService {
                 companyUsername.get().getEmail();
             }catch (Exception e){
                 message.put("error", "Token inválido.");
-                return ResponseEntity.badRequest().body(message);
+                return message;
             }
         }
         if(!payloadJSON.getSub().contains("@")){
@@ -54,7 +54,7 @@ public class AuthService {
                 userUsername.get().getUsername();
             }catch (Exception e){
                 message.put("error", "Token inválido.");
-                return ResponseEntity.badRequest().body(message);
+                return message;
             }
         }
 
@@ -68,11 +68,11 @@ public class AuthService {
                 message.put("name", companyUsername.get().getName());
                 message.put("role", companyUsername.get().getRole()+"");
                 message.put("token", token);
-                return ResponseEntity.ok().body(message);
+                return message;
             }
 
             message.put("error", "Token inválido.");
-            return ResponseEntity.badRequest().body(message);
+            return message;
 
         }
 
@@ -85,14 +85,14 @@ public class AuthService {
                 message.put("name", userUsername.get().getName());
                 message.put("role", userUsername.get().getRole()+"");
                 message.put("token", token);
-                return ResponseEntity.ok().body(message);
+                return message;
             }
 
             message.put("error", "Token inválido.");
-            return ResponseEntity.badRequest().body(message);
+            return message;
 
         }
         message.put("error", "Token inválido.");
-        return ResponseEntity.badRequest().body(message);
+        return message;
     }
 }
