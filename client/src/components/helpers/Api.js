@@ -19,6 +19,13 @@ async function companyRegister(userData){
   return data;
 }
 
+/* AUTO AUTHENTICATE USING TOKEN */
+async function autoAuthenticate(token){
+  const response = await axios.post("http://localhost:8080/auth", token);
+  const data = await response.data;
+  return data;
+}
 
 
-export { companyLogin, companyRegister };
+
+export { companyLogin, companyRegister, autoAuthenticate };
