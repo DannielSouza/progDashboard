@@ -1,25 +1,19 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import autoCheckAuthenticate from '../helpers/AutoAuthenticate'
-import { useDispatch } from 'react-redux'
-import { saveUser } from '../../redux/user/slice'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const CompanyHome = () => {
-
-  const [token, setToken] = React.useState(localStorage.getItem("progDashboardAuth"))
+  const { currentUser } = useSelector(rootReducer => rootReducer)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   React.useEffect(()=>{
-    if(token){
-      async function autoAuthenticate(){
-        const company = await autoCheckAuthenticate(token, navigate)
-        dispatch(saveUser(company))
-      }
-      autoAuthenticate()
+    if(!currentUser){
+      autoCheckAuthenticate(dispatch, navigate)
     }
-    navigate("/")
-  },[token])
+  },[])
 
   return (
     <div>CompanyHome</div>
