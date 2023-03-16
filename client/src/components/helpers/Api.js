@@ -2,10 +2,7 @@ import axios from "axios";
 
 /* LOGIN COMPANY */
 async function companyLogin(userData){
-  const response = await axios.post("http://localhost:8080/company/login", {
-    email: userData.email,
-    password: userData.password
-  });
+  const response = await axios.post("http://localhost:8080/company/login", userData);
   const data = await response.data;
 
   return data;
@@ -14,6 +11,14 @@ async function companyLogin(userData){
 /* REGISTER COMPANY */
 async function companyRegister(userData){
   const response = await axios.post("http://localhost:8080/company/register", userData);
+  const data = await response.data;
+
+  return data;
+}
+
+/* LOGIN USER */
+async function userLogin(userData){
+  const response = await axios.post("http://localhost:8080/user/login", userData);
   const data = await response.data;
 
   return data;
@@ -32,4 +37,4 @@ async function autoAuthenticate(token){
 
 
 
-export { companyLogin, companyRegister, autoAuthenticate };
+export { companyLogin, companyRegister, userLogin, autoAuthenticate };
