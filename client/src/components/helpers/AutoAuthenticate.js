@@ -10,7 +10,7 @@ export default async function checkAutoAuthenticate(dispatch, navigate){
 
     if(response.role === "ADMIN"){
       dispatch(saveUser(response))
-      return navigate("/company")
+      return navigate("/company/")
     } 
     if(response.role === "USER"){
       dispatch(saveUser(response))
