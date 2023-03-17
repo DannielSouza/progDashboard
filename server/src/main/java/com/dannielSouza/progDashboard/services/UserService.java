@@ -119,8 +119,10 @@ public class UserService {
         Optional<List<Task>> tasksList = taskRepository.findAllByIdUser(user.getId());
         return new UserDTO(
                 user.getId(),
+                user.getImage(),
                 user.getName(),
                 user.getUsername(),
+                user.getOffice(),
                 user.getIdCompany(),
                 user.getRole(),
                 user.getLastLogin(),

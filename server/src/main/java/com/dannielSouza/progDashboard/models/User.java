@@ -24,9 +24,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private  String name;
-    private  String username;
-    private  String password;
+    private String name;
+    private String username;
+    private String password;
+    private String office;
+    private String image;
     @Column(name = "id_company")
     private Long idCompany;
     @JsonIgnore
@@ -36,11 +38,12 @@ public class User implements UserDetails {
     private Role role;
     private LocalDateTime lastLogin;
 
-    public User(String name, String username, String password, Long idCompany) {
+    public User(String name, String username, String password, Long idCompany, String office) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.idCompany = idCompany;
+        this.office = office;
         setRole(Role.USER);
     }
 
