@@ -102,7 +102,7 @@ public class CompanyService {
 
 
     // REGISTER A NEW COMPANY USER
-    public ResponseEntity<Map<String, String>> createUser(User user/*,MultipartFile image*/) {
+    public ResponseEntity<Map<String, String>> createUser(User user) {
         Map<String, String> message = new HashMap<>();
 
         Optional<Company> company = repository.findById(user.getIdCompany());
@@ -119,11 +119,6 @@ public class CompanyService {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User newPerson = new User(user.getName(), user.getUsername(), encoder.encode(user.getPassword()), user.getIdCompany(), user.getOffice());
-
-        /*if(!image.isEmpty()){
-            newPerson.setImage(image.getOriginalFilename());
-            ImageUpload.imageUploader(image);
-        }*/
 
         userRepository.save(newPerson);
 

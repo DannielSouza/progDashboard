@@ -63,8 +63,8 @@ public class CompanyController {
     @PostMapping("/createUser")
     @PreAuthorize("hasAuthority('ADMIN')")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity<Map<String, String>> createUser(@RequestBody User user/*, @RequestParam("file")MultipartFile image*/){
-        return  service.createUser(user/*, image*/);
+    public ResponseEntity<Map<String, String>> createUser(@RequestBody User user){
+        return  service.createUser(user);
     }
 
 
