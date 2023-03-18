@@ -2,6 +2,7 @@ package com.dannielSouza.progDashboard.controllers;
 
 import com.dannielSouza.progDashboard.models.Company;
 import com.dannielSouza.progDashboard.models.DTO.CompanyDTO;
+import com.dannielSouza.progDashboard.models.Task;
 import com.dannielSouza.progDashboard.models.User;
 import com.dannielSouza.progDashboard.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -50,22 +53,29 @@ public class CompanyController {
     }
 
 
-    @PostMapping("/create")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("gettasks/{id}")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity<Map<String, String>> createUser(@RequestBody User user){
-        return  service.createUser(user);
+    public Object getAllTasksCompany(@PathVariable Long id){
+        return  service.getAllTasks(id);
     }
 
 
-    @DeleteMapping("/deleteAll/{id}")
+    @PostMapping("/createUser")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin("http://localhost:3000")
+    public ResponseEntity<Map<String, String>> createUser(@RequestBody User user/*, @RequestParam("file")MultipartFile image*/){
+        return  service.createUser(user/*, image*/);
+    }
+
+
+    @DeleteMapping("/deleteAllUser/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> deleteUserAndTasks(@PathVariable Long id){
         return  service.deleteUserAndTasks(id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id){

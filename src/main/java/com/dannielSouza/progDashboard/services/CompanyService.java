@@ -4,16 +4,19 @@ import com.dannielSouza.progDashboard.JWTconfig.JwtService;
 import com.dannielSouza.progDashboard.models.Company;
 import com.dannielSouza.progDashboard.models.DTO.CompanyDTO;
 import com.dannielSouza.progDashboard.models.DTO.UserDTO;
+import com.dannielSouza.progDashboard.models.Task;
 import com.dannielSouza.progDashboard.models.User;
 import com.dannielSouza.progDashboard.repositories.CompanyRepository;
 import com.dannielSouza.progDashboard.repositories.TaskRepository;
 import com.dannielSouza.progDashboard.repositories.UserRepository;
+import com.dannielSouza.progDashboard.util.ImageUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -99,7 +102,7 @@ public class CompanyService {
 
 
     // REGISTER A NEW COMPANY USER
-    public ResponseEntity<Map<String, String>> createUser(User user) {
+    public ResponseEntity<Map<String, String>> createUser(User user/*,MultipartFile image*/) {
         Map<String, String> message = new HashMap<>();
 
         Optional<Company> company = repository.findById(user.getIdCompany());
@@ -115,11 +118,24 @@ public class CompanyService {
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User newPerson = new User(user.getName(), user.getUsername(), encoder.encode(user.getPassword()), user.getIdCompany());
+        User newPerson = new User(user.getName(), user.getUsername(), encoder.encode(user.getPassword()), user.getIdCompany(), user.getOffice());
+
+        /*if(!image.isEmpty()){
+            newPerson.setImage(image.getOriginalFilename());
+            ImageUpload.imageUploader(image);
+        }*/
+
         userRepository.save(newPerson);
 
         message.put("message", "Pessoa criada com sucesso!");
         return ResponseEntity.ok().body(message);
+    }
+
+
+    // GET ALL COMPANY TASKS
+    public ResponseEntity<List<Task>> getAllTasks(Long id){
+        List<Task> taskList = taskRepository.findAllByIdCompany(id).get();
+        return ResponseEntity.ok().body(taskList);
     }
 
 

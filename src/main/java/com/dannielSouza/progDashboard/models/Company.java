@@ -34,7 +34,6 @@ public class Company implements UserDetails{
     private List<User> usersList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Role role;
-    /*private String role;*/
 
     public Company(Long id, String name, String email, String password) {
         this.id = id;
