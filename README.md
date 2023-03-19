@@ -2,7 +2,7 @@
 
 
 <h3>O que é o progDashboard?</h3>
-<h5>É uma API para empresas terem um maior controle sobre quais atividades determinado funcionário(usuário) tem, como está a situação dessa tarefa, seu prazo de término, etc.</h5>
+<h5>É uma API para empresas terem um maior controle sobre quais atividades determinado funcionário(usuário) tem, como está a situação das tarefas, seus prazos de término, etc.</h5>
 <br/>
 
 <h3>Como o progDashboard funciona?</h3>
