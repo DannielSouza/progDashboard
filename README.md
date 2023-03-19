@@ -156,4 +156,13 @@
 3- Adicionar a conexão do seu MySQL no arquivo "application-progDashboard.properties"<br/>
 4- Inicie o projeto spring.<br/>
 
-OBS: Caso você use o Insomnia, importe o arquivo "progDashboard Insomnia Collection" nele e uma coleção com todas rotas acima será criada.
+OBS: Caso você use o Insomnia, importe o arquivo "progDashboard Insomnia Collection" nele e uma coleção com todas rotas acima será criada. <br/><br/>
+
+
+ <h1 align="center"> Tecnologias usadas </h1> 
+ 
+ <div align="center">
+  <img height="70" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" />
+  <img height="70" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" />
+  <img height="70" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" />
+ </div>
