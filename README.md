@@ -152,7 +152,8 @@
 <h1 align="center"> Como usar localmente: </h1> 
 
 1- Instale e configure todo o ambiente Java(JDK +17);<br/>
-2- Abra no arquivo pom.xml e atualize, dessa forma irá baixar todas as dependências;<br/>
-3- Inicie o projeto spring.<br/>
+2- Abra no arquivo "pom.xml" e atualize, dessa forma irá baixar todas as dependências;<br/>
+3- Adicionar a conexão do seu MySQL no arquivo "application-progDashboard.properties"<br/>
+4- Inicie o projeto spring.<br/>
 
 OBS: Caso você use o Insomnia, importe o arquivo "progDashboard Insomnia Collection" nele e uma coleção com todas rotas acima será criada.
