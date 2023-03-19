@@ -18,7 +18,7 @@
 
 * <h3> Criação</h3>
 ```dart
-  POST company/register
+  POST /company/register
 ```
 
 | Parâmetro   | Tipo       | Descrição                           |
@@ -30,7 +30,7 @@
 
 * <h3>Login</h3>
 ```dart
-  POST company/login
+  POST /company/login
 ```
 
 | Parâmetro   | Tipo       | Descrição                           |
@@ -74,7 +74,7 @@
 
 * <h3> Deleção de usuário [JWT]</h3>
 ```dart
-  DELETE company/deleteUser/{id}
+  DELETE /company/deleteUser/{id}
 ```
 <br/>
 
@@ -102,4 +102,49 @@
 ```dart
   DELETE /task/delete/{id}
 ```
+<br/>
+
+
+<h1 align="center"> Rotas de usuário </h1> 
+
+
+* <h3>Login</h3>
+```dart
+  POST /user/login
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `username` | `string` | **Obrigatório:** Username de acesso. |
+| `password` | `string` | **Obrigatório:** Senha de acesso. |
+
+<br/>
+
+* <h3> Detalhes [JWT]</h3>
+```dart
+  GET /user/{id}
+```
+<br/>
+
+* <h3>Alterar status da tarefa [JWT]</h3>
+```dart
+  POST /user/{id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `Long` | **Obrigatório:** Id da tarefa. |
+| `taskStatus` | `string` | **Obrigatório:** Novo status da tarefa. |
+| `updateDate` | `string` | **Obrigatório:** Data de alteração da tarefa padrão ISO 8601. |
+
+<br/>
+
+
+<h1 align="center"> Outras rotas </h1> 
+
+* <h3>Autênticação automática com token [JWT]</h3>
+```dart
+  POST /auth
+```
+
 <br/>
